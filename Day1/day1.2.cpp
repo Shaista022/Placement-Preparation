@@ -1,19 +1,41 @@
-#include<bits/stdc++.h>
 
+#include <bits/stdc++.h>
 using namespace std;
-class solution{
-public:
-vector<vector<int>> generate(int numRows)
-{
-  vector<vector<int>> r(numRows);
-  for(int i=0;i<numRows;i++){
-    r[i].resize(i+1);
-    r[i][0]==r[i][i]=1;
-    for(int j=0;j<i;j++)
-    {
-        r[i][j]= r[i-1][j-1]+ r[i-1][j];
+
+int nCr(int n, int r) {
+    long long res = 1;
+
+    // calculating nCr:
+    for (int i = 0; i < r; i++) {
+        res = res * (n - i);
+        res = res / (i + 1);
     }
-    return r;
-  }
+    return (int)(res);
 }
-};
+
+vector<vector<int>> pascalTriangle(int n) {
+    vector<vector<int>> ans;
+
+    //Store the entire pascal's triangle:
+    for (int row = 1; row <= n; row++) {
+        vector<int> tempLst; // temporary list
+        for (int col = 1; col <= row; col++) {
+            tempLst.push_back(nCr(row - 1, col - 1));
+        }
+        ans.push_back(tempLst);
+    }
+    return ans;
+}
+
+int main()
+{
+    int n = 5;
+    vector<vector<int>> ans = pascalTriangle(n);
+    for (auto it : ans) {
+        for (auto ele : it) {
+            cout << ele << " ";
+        }
+        cout << "n";
+    }
+    return 0;
+}
